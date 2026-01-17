@@ -35,6 +35,7 @@ While different versions use different encryption or challenges, the underlying 
 5. Close the TCP connection.
 
 Note that we have programmed both observer and attacker in a way that  mmediately after connecting they automatically send a single character to identify the client (Send 'o' for Observer and 'a' for Attacker). this is for our gradiing purposes. so if you see one initial back and fourht in plan text between client and server, that is for our grading purposes. you simply can ignore them.
+
 ---
 
 ## System Architecture: Servers and Observers
@@ -142,25 +143,23 @@ docker compose up -d --build
 
 This will download necessary resources and start the server and client containers in the background.
 
-**1. Open two terminals.**
+1. **Open two terminals.**
 
-**2. Terminal 1 (Server):** Run the following command to start the server container.
+2. **Terminal 1 (Server):** Run the following command to start the server container.
 
-```bash
-docker compose run --rm server bash
+    ```bash
+    docker compose run --rm server bash
+    ```
 
-```
+    You should see a prompt like: `root@garage-server:/app#`
 
-You should see a prompt like: `root@garage-server:/app#`
+3. **Terminal 2 (Client):** Run the following command to start the client container.
 
-**3. Terminal 2 (Client):** Run the following command to start the client container.
+    ```bash
+    docker compose run --rm client bash
+    ```
 
-```bash
-docker compose run --rm client bash
-
-```
-
-You should see a prompt like: `root@garage-client:/app#`
+    You should see a prompt like: `root@garage-client:/app#`
 
 You will run the `garage_server` in **Terminal 1** and `garage_observer` (or `garage_attacker`) in **Terminal 2**. This setup allows you to correctly capture network traffic between the two containers.
 
@@ -180,61 +179,50 @@ The first version of the protocol does not use encryption. Your job is to figure
 In this first exercise, we will walk you through the entire process of running the experiment, capturing traffic, and launching an attack.
 
 1. **Start the Server:**
-In your **Server Terminal** (Terminal 1), run the server with the last 4 digits of your UCID (e.g., `5678`):
-```bash
-./garage_server_v1 5678
+   In your **Server Terminal** (Terminal 1), run the server with the last 4 digits of your UCID (e.g., `5678`):
+   ```bash
+   ./garage_server_v1 5678
+   ```
+   *Note the port number the server prints out (e.g., "Server running on port 12345").*
 
-```
-
-
-*Note the port number the server prints out (e.g., "Server running on port 12345").*
 2. **Start Capturing Network Traffic:**
-In your **Client Terminal** (Terminal 2), start `tcpdump` to record network traffic to a file named `v1.pcap`. We run this in the background (`&`) so we can keep using the terminal:
-```bash
-tcpdump -w v1.pcap &
-
-```
-
+   In your **Client Terminal** (Terminal 2), start `tcpdump` to record network traffic to a file named `v1.pcap`. We run this in the background (`&`) so we can keep using the terminal:
+   ```bash
+   tcpdump -w v1.pcap &
+   ```
 
 3. **Run the Observer:**
-Still in the **Client Terminal**, run the observer. You need the Server's IP (which is simply `garage-server` in our Docker setup) and your UCID:
-```bash
-./garage_observer_v1 garage-server 5678
+   Still in the **Client Terminal**, run the observer. You need the Server's IP (which is simply `garage-server` in our Docker setup) and your UCID:
+   ```bash
+   ./garage_observer_v1 garage-server 5678
+   ```
+   Watch the output. You will see messages like "Opening Door" or "Turning on Lights" with timestamps.
 
-```
-
-Watch the output. You will see messages like "Opening Door" or "Turning on Lights" with timestamps.
 4. **Stop the Capture:**
-Once the observer finishes, bring `tcpdump` to the foreground and stop it (or just kill the process):
-```bash
-pkill tcpdump
+   Once the observer finishes, bring `tcpdump` to the foreground and stop it (or just kill the process):
+   ```bash
+   pkill tcpdump
+   ```
+   You now have a file named `v1.pcap` in your current directory.
 
-```
-
-You now have a file named `v1.pcap` in your current directory.
 5. **Analyze the Traffic:**
-Open `v1.pcap` in **Wireshark** on your host machine.
-* **Filter the traffic:** Type `tcp.port == <PORT>` (use the port from Step 1) in the filter bar.
-* **Follow the Stream:** Right-click one of the packets -> **Follow** -> **TCP Stream**.
-* **Read the Protocol:** You will see the plain text commands sent by the observer (e.g., `CONNECT`, `OPEN`, etc.).
-* **Extract the Hex:** Identify the specific bytes used to "Open Door". Select the text in the "Follow TCP Stream" window, switch the view to "Hex Dump" or "C Arrays" if needed, or simply look at the packet bytes in the main window. Right-click the payload bytes in the bottom pane -> **Copy** -> **...as a Hex Stream**.
+   Open `v1.pcap` in **Wireshark** on your host machine.
+   * **Filter the traffic:** Type `tcp.port == <PORT>` (use the port from Step 1) in the filter bar.
+   * **Follow the Stream:** Right-click one of the packets -> **Follow** -> **TCP Stream**.
+   * **Read the Protocol:** You will see the plain text commands sent by the observer (e.g., `CONNECT`, `OPEN`, etc.).
+   * **Extract the Hex:** Identify the specific bytes used to "Open Door". Select the text in the "Follow TCP Stream" window, switch the view to "Hex Dump" or "C Arrays" if needed, or simply look at the packet bytes in the main window. Right-click the payload bytes in the bottom pane -> **Copy** -> **...as a Hex Stream**.
 
 
 6. **Launch the Attack:**
-Now you know what bytes the server expects. Use the `garage_attacker` to send them.
-* Identify the hex string for the "Open Door" command.
-* Run the attacker in your **Client Terminal**:
-```bash
-./garage_attacker server <PORT>
-
-```
-
-
-* The program will wait for input. Paste the hex string for the `CONNECT` command and press Enter.
-* Paste the hex string for the `OPEN DOOR` command and press Enter.
-* If successful, the server will reply with: `SECURITY BREACH: DOOR OPEN! code: XXXXXX`.
-
-
+   Now you know what bytes the server expects. Use the `garage_attacker` to send them.
+   * Identify the hex string for the "Open Door" command.
+   * Run the attacker in your **Client Terminal**:
+     ```bash
+     ./garage_attacker server <PORT>
+     ```
+   * The program will wait for input. Paste the hex string for the `CONNECT` command and press Enter.
+   * Paste the hex string for the `OPEN DOOR` command and press Enter.
+   * If successful, the server will reply with: `SECURITY BREACH: DOOR OPEN! code: XXXXXX`.
 
 ### Version 2 (8 points)
 
@@ -248,7 +236,6 @@ Version three is improved by using **128-bit AES in CBC mode** (much better). Be
 +------------+------------+
 | 16-byte IV | E(message) |
 +------------+------------+
-
 ```
 
 A message like "open" will now be sent as a 16-byte IV followed by the encryption of the message using the shared key and the sent IV. Again, you do not need to learn the key to attack the system.
@@ -266,32 +253,25 @@ Version five is the same as version four, except that a **two-byte random challe
 **Protocol Structure:**
 
 1. **Client Connects:**
-```text
-+------------+--------------------+
-| 16-byte IV | E(connect message) |
-+------------+--------------------+
-
-```
-
+   ```text
+   +------------+--------------------+
+   | 16-byte IV | E(connect message) |
+   +------------+--------------------+
+   ```
 
 2. **Server Response:**
-```text
-+------------------+------------------+
-| 2-byte challenge | connect response |
-+------------------+------------------+
-
-```
-
+   ```text
+   +------------------+------------------+
+   | 2-byte challenge | connect response |
+   +------------------+------------------+
+   ```
 
 3. **Client Sends Command:**
-```text
-+------------+----------------------------------+
-| 16-byte IV | E(2-byte challenge | message )   |
-+------------+----------------------------------+
-
-```
-
-
+   ```text
+   +------------+----------------------------------+
+   | 16-byte IV | E(2-byte challenge | message )   |
+   +------------+----------------------------------+
+   ```
 
 Each connection results in a new random challenge. If you run the observer, the challenge you capture won't be the same as the one you receive when you try to replay the message. Nevertheless, the fact that it is a **stream cipher** allows for a **malleability-based attack**.
 
@@ -309,7 +289,6 @@ The catch is that during the observer phase, you **won't see any garage door ope
 +------------+
 | E(message) |
 +------------+
-
 ```
 
 > *Hint: The use of counter mode with IV reuse results in what problem?*

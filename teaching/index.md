@@ -1,7 +1,7 @@
 # Sample Teaching Materials
 
 Welcome! 
-Below are some of the teaching materials I've prepared for Circuits and Embedded Systems, Assistant Professor (Teaching) position, including:
+Below are some of the teaching materials I've prepared teaching dossier:
 - [**Security Lectures**](security)
 - [**Web App Development**](web)
 - [**OS Labs (as a TA)**](os)
