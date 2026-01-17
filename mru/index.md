@@ -8,7 +8,7 @@ Welcome! Below are samples of the teaching dossier materials I have prepared, in
 - [**Web App Course - Labs**](web_labs)
 - [**Practical Cloud Computing Course - Labs**](cloud_labs)
 - [**UofC OS Labs (as a TA)**](os)
-- [**Student Evaluation**](ursi)
+- [**Student Evaluation**](usri)
 - [**Course Syllabus Revision**](outlines)
 - [**Professional Development Certificates**](professional_development)
 <!-- - [**Current SoTL Project**](sotl) -->
