@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>How to Create Your Webpage on EC2</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
+            margin: 0;
+            padding: 40px;
+            line-height: 1.6;
+        }
+        h1 {
+            color: #0f2027;
+            text-align: center;
+        }
+        .step {
+            background: white;
+            padding: 20px;
+            margin: 15px 0;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        code {
+            background: #eee;
+            padding: 2px 6px;
+            border-radius: 4px;
+        }
+        pre {
+            background: #f8f8f8;
+            padding: 12px;
+            border-radius: 6px;
+            overflow-x: auto;
+        }
+        .note {
+            color: #d32f2f;
+            font-size: 0.95rem;
+        }
+    </style>
+</head>
+<body>
+    <h1>How to Create Your Webpage on EC2</h1>
+
+    <div class="step">
+        <strong>1. Download the key</strong><br>
+        <pre><code>wget http://keshvadi.github.io/dl/sina.pem</code></pre>
+    </div>
+
+    <div class="step">
+        <strong>2. Set permission</strong><br>
+        <pre><code>chmod 400 sina.pem</code></pre>
+    </div>
+
+    <div class="step">
+        <strong>3. Connect to your EC2</strong><br>
+        <pre><code>ssh -i "sina.pem" ec2-user@18.216.143.39</code></pre>
+    </div>
+
+    <div class="step">
+        <strong>4. Go to website folder</strong><br>
+        <pre><code>cd /var/www/html</code></pre>
+    </div>
+
+    <div class="step">
+        <strong>5. Create your file</strong><br>
+        <pre><code>sudo nano YOUR-NAME.html</code></pre>
+    </div>
+
+    <div class="step">
+        <strong>6. Write anything you want, then save and exit</strong><br>
+        Write your content in the editor.<br>
+        <strong>Press:</strong> Ctrl + X  →  then press Y  →  then Enter
+    </div>
+
+    <div class="step">
+        <strong>7. Open in browser</strong><br>
+        Go to this address:<br><br>
+        <strong>http://18.216.143.39/YOUR-NAME.html</strong>
+    </div>
+
+    <p class="note">
+        <strong>Note:</strong> Replace <code>YOUR-NAME.html</code> with the actual name you choose (example: sina.html or test.html)
+    </p>
+
+</body>
+</html>
