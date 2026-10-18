@@ -1,5 +1,5 @@
 # Student Evaluations
 
-1.  [TRU - All Evaluations](TRU_All.pdf)
-2.  [UCalgary - Evaluation Set 1](UCalgary_1.pdf)
-3.  [UCalgary - Evaluation Set 2](UCalgary_2.pdf)
+1. [TRU Post 2026 - All Courses](post_2026.pdf)
+2. [TRU Pre 2026 - All Courses](pre_2026.pdf)
+3. [UCalgary - Operating System TA Fall 2019](ucalgary_1.pdf)

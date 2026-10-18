@@ -2,14 +2,14 @@
 
 Welcome! 
 Below are some of the teaching dossier content that I've prepared, including:
-- [**Sample of Assignments, Final Projects, and Exams**](assessment)
-- [**Security Course - Lectures**](security)
-- [**Web App Course - Lectures**](web)
-- [**Web App Course - Labs**](web_labs)
-- [**Practical Cloud Computing Course - Labs**](cloud_labs)
+- [**Sample of Assignments**](assignments)
+- [**Sample of Projects**](projects)
+- [**Sample of Exams**](exams)
+- [**Security Course - Full Lecture Deck**](security)
+- [**Sample of Labs**](labs)
 - [**UofC OS Labs (as a TA)**](os)
-- [**Student Evaluation**](ursi)
-- [**Course Syllabus Revision**](outlines)
-- [**Professional Development Certificates**](professional_development)
-<!-- - [**Current SoTL Project**](sotl) -->
-- [**HighSchool Activity**](highschool)
+- [**Student Evaluations**](ursi)
+- [**Peer Review of Teaching**](peer_review)
+- [**Course Curriculum Development**](curriculum_development)
+- [**Professional Development**](professional_development)
+- [**High School Activity**](highschool)
