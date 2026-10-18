@@ -1,6 +1,7 @@
 # Sample of Course Projects
 - **Practical Cloud Computing Course (SENG 4620) - Design Project**
   - [Project Brief](project_cloud_brief.pdf)
+  - [Team Charter](project_team_charter.pdf)
   - [Phase 1](project_cloud_phase_1.pdf)
   - [Phase 2](project_cloud_phase_2.pdf)
   - [Phase 3](project_cloud_phase_3.pdf)
